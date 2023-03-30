@@ -11,7 +11,9 @@ builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration.GetConnectionString("Connection");
 builder.Services.AddDbContext<MyContext>(options => options.UseSqlServer(connectionString));
 
+// Dependensi Injections
 builder.Services.AddScoped<UniversityRepository>();
+builder.Services.AddScoped<AccountRepository>();
 
 var app = builder.Build();
 

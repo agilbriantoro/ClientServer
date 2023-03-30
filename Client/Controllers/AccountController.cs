@@ -1,6 +1,8 @@
-﻿using Client.Base;
+﻿using API.ViewModels;
+using Client.Base;
 using Client.Models;
 using Client.Repositories.Data;
+using Client.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -19,19 +21,36 @@ namespace Client.Controllers
             return View();
         }
 
-        public IActionResult Create()
+        public IActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Account account)
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(Account account)
         {
             var result = await _accountRepository.Post(account);
             if (result.StatusCode == "200")
             {
                 RedirectToAction("Index");
+            }
+            return View();
+        }
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginVM entity)
+        {
+            var result = await _accountRepository.Login(entity);
+            if (result.StatusCode == "200")
+            {
+                return RedirectToAction("Index", "Home");
             }
             return View();
         }

@@ -16,7 +16,7 @@ namespace Client.Repositories.Data
             this.request = request;
             _httpClient = new HttpClient
             {
-                BaseAddress = new Uri("https://localhost:7205/api/")
+                BaseAddress = new Uri("https://localhost:7020/api/")
             };
         }
 
