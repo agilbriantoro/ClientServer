@@ -1,0 +1,52 @@
+﻿<h1>List Deck</h1>
+
+<table class="table table-light text-dark pt-4">
+    <thead class="table-light text-dark pt-4 text-md-center">
+        <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="tbodyYuGiOh">
+    </tbody>
+
+</table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalYuGiOh" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="img-container">
+                <img id="update_img" src="https://images.ygoprodeck.com/images/cards/50371210.jpg" alt="" srcset="">
+            </div>
+            <div class="detail-container">
+                <div class="title-container">
+                    <h3 class="name text-center" id="update_name">Name</h3>
+                    <hr class="seperator">
+                </div>
+                <div class="player-data">
+                    <div class="col data-container" style="background-color : aquamarine">
+                        <small class="muted-text">Type</small>
+                        <p class="muted-text " id="update_type">spell</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/ajax.js" asp-append-version="true"></script>
+}
