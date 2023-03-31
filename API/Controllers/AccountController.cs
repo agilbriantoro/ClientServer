@@ -1,4 +1,5 @@
 ﻿using API.Repositories.Data;
+using API.Repositories.Interface;
 using API.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -57,7 +58,7 @@ namespace API.Controllers
                 foreach (var item in roles)
                 {
                     claims.Add(new Claim(ClaimTypes.Role, item));
-                } 
+                }
                 if (userdata is null)
                 {
                     return BadRequest(new
@@ -65,7 +66,7 @@ namespace API.Controllers
                         StatusCode = 409,
                         massage = "Login Failed"
                     });
-                    
+
                 }
                 else
                 {
@@ -86,8 +87,8 @@ namespace API.Controllers
                         Data = generateToken
                     });
                 }
-                
-                
+
+
             }
             catch
             {
@@ -95,10 +96,11 @@ namespace API.Controllers
                 {
                     StatusCode = 400,
                     Massage = "Opps Login Failed!",
-                   
+
                 });
             }
-            
+
         }
+
     }
 }

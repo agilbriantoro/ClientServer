@@ -4,6 +4,7 @@ using Client.Models;
 using Client.Repositories.Data;
 using Client.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Core.Types;
 
 
 namespace Client.Controllers
@@ -45,14 +46,25 @@ namespace Client.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginVM entity)
+        public async Task<IActionResult> Login(LoginVM loginVM)
         {
-            var result = await _accountRepository.Login(entity);
-            if (result.StatusCode == "200")
+            var result = await _accountRepository.Login(loginVM);
+            if (result is null)
             {
+                return RedirectToAction("Error", "Home");
+            }
+            else if (result.StatusCode == "409")
+            {
+                ModelState.AddModelError(string.Empty, result.Message);
+                return View();
+            }
+            else if (result.StatusCode == "200")
+            {
+                HttpContext.Session.SetString("JWToken", result.Data);
                 return RedirectToAction("Index", "Home");
             }
             return View();
         }
+
     }
 }
