@@ -17,9 +17,9 @@ builder.Services.AddSession(option =>
     option.IdleTimeout = TimeSpan.FromMinutes(5);
 });
 
-// Configure DbContext to Sql Server Database
+/*// Configure DbContext to Sql Server Database
 var connectionString = builder.Configuration.GetConnectionString("Connection");
-builder.Services.AddDbContext<MyContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<MyContext>(options => options.UseSqlServer(connectionString));*/
 
 // Dependensi Injections
 builder.Services.AddScoped<UniversityRepository>();
@@ -44,6 +44,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 var app = builder.Build();
 
 
@@ -63,15 +65,18 @@ app.UseRouting();
 
 app.UseSession();
 
+app.UseSession();
+// Memasang Token didalam Header
 app.Use(async (context, next) =>
 {
     var JWToken = context.Session.GetString("JWToken");
     if (!string.IsNullOrEmpty(JWToken))
     {
-        context.Request.Headers.Add("Authorization", "Bearer" + JWToken);
+        context.Request.Headers.Add("Authorization", "Bearer " + JWToken);
     }
     await next();
 });
+
 
 app.UseAuthentication();
 app.UseAuthorization();
